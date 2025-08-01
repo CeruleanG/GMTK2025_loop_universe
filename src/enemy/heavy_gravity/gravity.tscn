@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://tmoibjk14rko"]
+
+[ext_resource type="Script" uid="uid://con80dgdb1cmx" path="res://src/enemy/heavy_gravity/gravity.gd" id="1_qqj1r"]
+[ext_resource type="Texture2D" uid="uid://buuytg7x1e0ay" path="res://asset/icon.svg" id="2_pikmp"]
+[ext_resource type="Script" uid="uid://dpjc7joy2ktti" path="res://src/class/class_HitBox.gd" id="3_8skkw"]
+[ext_resource type="Texture2D" uid="uid://c6j50fyovfd0e" path="res://asset/gravity/black_circle.png" id="4_8skkw"]
+[ext_resource type="Script" uid="uid://wy13nym4eqef" path="res://src/enemy/heavy_gravity/field.gd" id="5_c8bb3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmx68"]
+radius = 64.04
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ie5wa"]
+radius = 6.7082
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3aj8l"]
+radius = 99.0
+
+[node name="gravity" type="CharacterBody2D" groups=["can_despawn"]]
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_qqj1r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.185866, 8.04024e-05, 0.225838, 1)
+scale = Vector2(0.234375, 0.234375)
+texture = ExtResource("2_pikmp")
+
+[node name="HitBox" type="Area2D" parent="Sprite2D" groups=["Danger"]]
+script = ExtResource("3_8skkw")
+metadata/_custom_type_script = "uid://dpjc7joy2ktti"
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Sprite2D/HitBox"]
+shape = SubResource("CircleShape2D_vmx68")
+debug_color = Color(0.980392, 0, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ie5wa")
+
+[node name="field" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.27451)
+scale = Vector2(2, 2)
+texture = ExtResource("4_8skkw")
+script = ExtResource("5_c8bb3")
+
+[node name="field" type="Area2D" parent="field"]
+
+[node name="FieldShape" type="CollisionShape2D" parent="field/field"]
+shape = SubResource("CircleShape2D_3aj8l")
+
+[connection signal="body_entered" from="field/field" to="field" method="_on_field_body_entered"]
+[connection signal="body_exited" from="field/field" to="field" method="_on_field_body_exited"]

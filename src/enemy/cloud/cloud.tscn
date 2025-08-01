@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc0eiorkg3nrl"]
+
+[ext_resource type="Script" uid="uid://dlhu5441fj3m8" path="res://src/enemy/cloud/cloud.gd" id="1_nul2g"]
+[ext_resource type="Texture2D" uid="uid://buuytg7x1e0ay" path="res://asset/icon.svg" id="2_lanvw"]
+[ext_resource type="Texture2D" uid="uid://c6j50fyovfd0e" path="res://asset/gravity/black_circle.png" id="4_kdeg3"]
+[ext_resource type="Script" uid="uid://btu45gssrhbg1" path="res://src/enemy/cloud/field.gd" id="4_nul2g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ie5wa"]
+radius = 6.7082
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3aj8l"]
+radius = 99.0
+
+[node name="cloud" type="CharacterBody2D" groups=["can_despawn"]]
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_nul2g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.205993, 0.184018, 1, 1)
+scale = Vector2(2.35938, 2.34375)
+texture = ExtResource("2_lanvw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ie5wa")
+
+[node name="field" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0.298039)
+scale = Vector2(2, 2)
+texture = ExtResource("4_kdeg3")
+script = ExtResource("4_nul2g")
+
+[node name="field" type="Area2D" parent="field"]
+
+[node name="FieldShape" type="CollisionShape2D" parent="field/field"]
+visible = false
+shape = SubResource("CircleShape2D_3aj8l")
+
+[connection signal="body_entered" from="field/field" to="field" method="_on_field_body_entered"]
+[connection signal="body_exited" from="field/field" to="field" method="_on_field_body_exited"]

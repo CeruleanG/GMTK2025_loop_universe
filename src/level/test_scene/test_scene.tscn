@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsghb8vtp7xde"]
+
+[ext_resource type="Script" uid="uid://8xm357dxtxdp" path="res://src/level/test_scene/test_scene.gd" id="1_76g47"]
+[ext_resource type="PackedScene" uid="uid://coktri3xhmuhj" path="res://src/enemy/rock/rock.tscn" id="2_cehyd"]
+[ext_resource type="Script" uid="uid://buv3lkkp8y3i3" path="res://src/level/test_scene/despawn_zone.gd" id="3_cehyd"]
+[ext_resource type="PackedScene" uid="uid://tmoibjk14rko" path="res://src/enemy/heavy_gravity/gravity.tscn" id="3_ckwb6"]
+[ext_resource type="Script" uid="uid://cxj2mdtcc5gg6" path="res://src/level/test_scene/spawn_markers.gd" id="4_6euen"]
+[ext_resource type="PackedScene" uid="uid://bc0eiorkg3nrl" path="res://src/enemy/cloud/cloud.tscn" id="4_42hfj"]
+[ext_resource type="Texture2D" uid="uid://buuytg7x1e0ay" path="res://asset/icon.svg" id="5_6euen"]
+[ext_resource type="PackedScene" uid="uid://dr55yhm27td36" path="res://src/player/player.tscn" id="6_ckwb6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76g47"]
+size = Vector2(1090, 723)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fovfd"]
+size = Vector2(20, 484.646)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7bmmq"]
+size = Vector2(685.437, 20)
+
+[node name="test_scene" type="Node"]
+script = ExtResource("1_76g47")
+rock_scene = ExtResource("2_cehyd")
+gravity_scene = ExtResource("3_ckwb6")
+cloud_scene = ExtResource("4_42hfj")
+
+[node name="despawn_zone" type="Area2D" parent="."]
+monitorable = false
+script = ExtResource("3_cehyd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="despawn_zone"]
+position = Vector2(545, 361.5)
+shape = SubResource("RectangleShape2D_76g47")
+debug_color = Color(0, 0.6, 0.701961, 0.0980392)
+
+[node name="level_limit" type="StaticBody2D" parent="."]
+scale = Vector2(1.50828, 1.48847)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_limit"]
+position = Vector2(10, 241.858)
+shape = SubResource("RectangleShape2D_fovfd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="level_limit"]
+position = Vector2(715.382, 242.323)
+shape = SubResource("RectangleShape2D_fovfd")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="level_limit"]
+position = Vector2(362.719, 10)
+shape = SubResource("RectangleShape2D_7bmmq")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="level_limit"]
+position = Vector2(362.001, 473.639)
+shape = SubResource("RectangleShape2D_7bmmq")
+
+[node name="Sprite2D" type="Sprite2D" parent="level_limit"]
+z_index = 1
+position = Vector2(776.206, 241.435)
+scale = Vector2(1.10085, 3.79617)
+texture = ExtResource("5_6euen")
+
+[node name="Label" type="Label" parent="level_limit/Sprite2D"]
+offset_left = -14.8973
+offset_top = -40.9467
+offset_right = 27.1027
+offset_bottom = 1.05325
+theme_override_font_sizes/font_size = 30
+text = "UI"
+
+[node name="spawn_markers" type="Node2D" parent="."]
+script = ExtResource("4_6euen")
+
+[node name="Marker2D" type="Marker2D" parent="spawn_markers"]
+position = Vector2(200, -150)
+
+[node name="Marker2D2" type="Marker2D" parent="spawn_markers"]
+position = Vector2(590, -150)
+
+[node name="Marker2D3" type="Marker2D" parent="spawn_markers"]
+position = Vector2(945, -150)
+
+[node name="Marker2D4" type="Marker2D" parent="spawn_markers"]
+position = Vector2(1250, 100)
+
+[node name="Marker2D5" type="Marker2D" parent="spawn_markers"]
+position = Vector2(1250, 360)
+
+[node name="Marker2D6" type="Marker2D" parent="spawn_markers"]
+position = Vector2(1250, 600)
+
+[node name="Marker2D7" type="Marker2D" parent="spawn_markers"]
+position = Vector2(945, 870)
+
+[node name="Marker2D8" type="Marker2D" parent="spawn_markers"]
+position = Vector2(590, 870)
+
+[node name="Marker2D9" type="Marker2D" parent="spawn_markers"]
+position = Vector2(200, 870)
+
+[node name="Marker2D10" type="Marker2D" parent="spawn_markers"]
+position = Vector2(-150, 100)
+
+[node name="Marker2D11" type="Marker2D" parent="spawn_markers"]
+position = Vector2(-150, 360)
+
+[node name="Marker2D12" type="Marker2D" parent="spawn_markers"]
+position = Vector2(-150, 600)
+
+[node name="Marker2D13" type="Marker2D" parent="spawn_markers"]
+position = Vector2(-150, -150)
+
+[node name="Marker2D14" type="Marker2D" parent="spawn_markers"]
+position = Vector2(1250, -150)
+
+[node name="Marker2D15" type="Marker2D" parent="spawn_markers"]
+position = Vector2(1250, 870)
+
+[node name="Marker2D16" type="Marker2D" parent="spawn_markers"]
+position = Vector2(-150, 870)
+
+[node name="player" parent="." instance=ExtResource("6_ckwb6")]
+position = Vector2(505, 325)
+
+[connection signal="body_exited" from="despawn_zone" to="despawn_zone" method="_on_body_exited"]

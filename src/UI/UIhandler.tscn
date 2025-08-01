@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://blpp8y8bpmtvl"]
+
+[ext_resource type="Script" uid="uid://bkvjblaxi4ooc" path="res://src/UI/u_ihandler.gd" id="1_0vdpw"]
+[ext_resource type="PackedScene" uid="uid://df8uu56fb86o3" path="res://src/UI/fade/fade.tscn" id="1_bwrqw"]
+
+[node name="UIhandler" type="CanvasLayer"]
+script = ExtResource("1_0vdpw")
+
+[node name="fade" parent="." instance=ExtResource("1_bwrqw")]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://coktri3xhmuhj"]
+
+[ext_resource type="Texture2D" uid="uid://buuytg7x1e0ay" path="res://asset/icon.svg" id="1_butxg"]
+[ext_resource type="Script" path="res://src/enemy/rock/rock.gd" id="1_qymfj"]
+[ext_resource type="Script" uid="uid://dpjc7joy2ktti" path="res://src/class/class_HitBox.gd" id="2_ie5wa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmx68"]
+radius = 64.04
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ie5wa"]
+radius = 37.0135
+
+[node name="rock" type="CharacterBody2D" groups=["can_despawn"]]
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_qymfj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.952941, 0.541176, 0, 1)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_butxg")
+
+[node name="HitBox" type="Area2D" parent="Sprite2D" groups=["Danger"]]
+script = ExtResource("2_ie5wa")
+metadata/_custom_type_script = "uid://dpjc7joy2ktti"
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Sprite2D/HitBox"]
+shape = SubResource("CircleShape2D_vmx68")
+debug_color = Color(0.980392, 0, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ie5wa")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpg6osrpf6cvg"]
+
+[ext_resource type="PackedScene" uid="uid://dr55yhm27td36" path="res://src/player/player.tscn" id="1_5j7ef"]
+[ext_resource type="PackedScene" uid="uid://bc0eiorkg3nrl" path="res://src/enemy/cloud/cloud.tscn" id="2_xtv5q"]
+
+[node name="play_field" type="Node"]
+
+[node name="cloud" parent="." instance=ExtResource("2_xtv5q")]
+position = Vector2(626, 431)
+
+[node name="player" parent="." instance=ExtResource("1_5j7ef")]
+position = Vector2(442, 444)
